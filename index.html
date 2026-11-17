@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misi Audio Visual — DKV Kelas XII</title>
+<style>
+:root{--ink:#17233d;--muted:#66728a;--paper:#f5f7ff;--purple:#6657e8;--pink:#ff6b9a;--cyan:#42c6d9;--yellow:#ffd45c;--green:#23b887;--red:#ef6572}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(135deg,#eef0ff,#fff4f7 55%,#e9fbff);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);min-height:100vh}
+header{padding:20px clamp(14px,4vw,48px) 14px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:54px;height:54px;border-radius:17px;background:linear-gradient(135deg,var(--purple),#a36bf4);display:grid;place-items:center;color:white;font-size:27px;box-shadow:0 8px 20px #6657e844}
+h1{font-size:clamp(21px,3vw,32px);margin:0;letter-spacing:-.7px}.subtitle{color:var(--muted);font-size:14px;margin-top:3px}
+.pill{background:#fff;border:1px solid #e5e7f4;border-radius:999px;padding:10px 15px;font-weight:750;font-size:14px;box-shadow:0 4px 12px #28345a0b}
+main{max-width:1200px;margin:auto;padding:8px clamp(12px,3vw,34px) 34px}
+.intro{background:linear-gradient(110deg,#6256df,#8a67ec 60%,#c16ce4);color:white;border-radius:24px;padding:clamp(18px,3vw,28px);display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 14px 32px #6657e833}
+.intro h2{font-size:clamp(20px,3vw,29px);margin:0 0 7px}.intro p{margin:0;opacity:.93;line-height:1.5;max-width:690px}.mission-art{font-size:clamp(48px,8vw,82px);filter:drop-shadow(0 8px 5px #392b6b55)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.stat{background:white;border:1px solid #e8eaf5;border-radius:18px;padding:13px 16px;display:flex;align-items:center;gap:11px;box-shadow:0 5px 15px #28345a09}
+.stat-icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:#f0efff}.stat strong{display:block;font-size:20px}.stat small{color:var(--muted);font-size:12px}
+.game{background:#fff;border:1px solid #e7e9f3;border-radius:24px;padding:clamp(15px,2.6vw,25px);box-shadow:0 12px 30px #28345a0d}
+.game-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.game-top h3{margin:0;font-size:clamp(18px,2.4vw,23px)}.progress-wrap{height:10px;background:#eceefa;border-radius:20px;overflow:hidden;margin:0 0 20px}.progress{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .25s}
+.instruction{background:#fff8df;border:1px solid #ffe6a0;padding:13px 16px;border-radius:15px;margin-bottom:18px;line-height:1.45;font-size:15px}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{background:#f8f9ff;border:1px solid #e9ebf7;border-radius:19px;padding:15px;min-width:0}
+.panel h4{margin:0 0 12px;font-size:16px;display:flex;align-items:center;gap:8px}
+.items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.item{min-height:100px;border:2px solid #e4e7f4;background:white;border-radius:16px;padding:12px 9px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;cursor:grab;touch-action:none;user-select:none;transition:border-color .15s,transform .15s,box-shadow .15s}
+.item .emoji{font-size:34px;line-height:1.1}.item strong{font-size:14px;line-height:1.25}.item:active{cursor:grabbing}.item.selected{border-color:var(--purple);box-shadow:0 0 0 4px #6657e822;transform:scale(1.02)}
+.item.used{opacity:.38;filter:grayscale(.6);pointer-events:none}
+.dropzones{display:grid;gap:10px}
+.zone{min-height:100px;border:2px dashed #cbd1e8;background:white;border-radius:16px;padding:12px;display:flex;align-items:center;gap:12px;transition:.15s}
+.zone.over{border-color:var(--purple);background:#f1efff;transform:scale(1.01)}
+.zone.correct{border:2px solid #7bd8b9;background:#edfff7}.zone.wrong{border:2px solid #ff9ca5;background:#fff0f1}
+.zone-icon{width:52px;height:52px;flex:0 0 52px;border-radius:15px;background:#f0efff;display:grid;place-items:center;font-size:27px}
+.zone-copy{flex:1;min-width:0}.zone-copy strong{display:block;font-size:15px}.zone-copy small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.zone-answer{font-size:13px;font-weight:750;margin-top:6px;color:#16865f}.zone.wrong .zone-answer{color:#c43f50}
+.feedback{min-height:30px;margin:15px 2px 0;font-weight:750;font-size:14px}.feedback.good{color:#16865f}.feedback.bad{color:#c43f50}
+.controls{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-top:12px}
+button{border:0;border-radius:14px;padding:14px 20px;font:700 15px system-ui;cursor:pointer;min-height:52px;touch-action:manipulation}
+button:focus-visible,.item:focus-visible{outline:4px solid #ffcf4a;outline-offset:3px}
+.primary{background:var(--purple);color:white;box-shadow:0 6px 14px #6657e833}.secondary{background:#edf0fb;color:#39435e}.primary:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.hint{font-size:12px;color:var(--muted);margin-top:10px}
+.result{display:none;text-align:center;padding:26px 12px}.result.show{display:block}.result .big{font-size:70px}.result h2{font-size:clamp(25px,4vw,36px);margin:5px 0}.result p{color:var(--muted);line-height:1.5}
+footer{text-align:center;color:#7c8499;font-size:12px;padding:18px}
+.drag-ghost{position:fixed;z-index:99;pointer-events:none;transform:translate(-50%,-50%);opacity:.92;box-shadow:0 14px 30px #1d244455}
+@media(max-width:760px){.columns{grid-template-columns:1fr}.mission-art{display:none}.stats{gap:8px}.stat{padding:10px}.stat small{font-size:11px}}
+@media(max-width:430px){.items{grid-template-columns:repeat(2,minmax(0,1fr))}.zone{min-height:90px}.pill{font-size:12px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="brand-mark">🎬</div><div><h1>Misi Audio Visual</h1><div class="subtitle">Desain Komunikasi Visual • Kelas XII</div></div></div>
+ <div class="pill">📚 Teknik Pengolahan Audio Video</div>
+</header>
+<main>
+ <section class="intro">
+  <div><h2>Siap jadi kru produksi? 🚀</h2><p>Kenali peralatan dan profesi dalam produksi audio video. Cocokkan kartu di sebelah kiri dengan fungsi atau tugas yang tepat di sebelah kanan untuk menyelesaikan misi!</p></div>
+  <div class="mission-art">🎥🎙️</div>
+ </section>
+ <section class="stats" aria-label="Statistik permainan">
+  <div class="stat"><div class="stat-icon">⭐</div><div><strong id="score">0</strong><small>Skor</small></div></div>
+  <div class="stat"><div class="stat-icon">🧩</div><div><strong id="progressText">0 / 8</strong><small>Pasangan benar</small></div></div>
+  <div class="stat"><div class="stat-icon">❤️</div><div><strong id="attempts">0</strong><small>Percobaan</small></div></div>
+ </section>
+ <section class="game" id="game">
+  <div class="game-top"><h3>🎯 Tantangan: Pasangkan dengan tepat!</h3><span class="pill" id="round">Babak 1 • 8 pasangan</span></div>
+  <div class="progress-wrap"><div class="progress" id="bar"></div></div>
+  <div class="instruction"><strong>Petunjuk:</strong> Seret kartu peralatan/profesi ke kotak pasangan yang sesuai. Di layar sentuh, kamu juga bisa mengetuk kartu lalu mengetuk kotak tujuan. Setiap jawaban benar mendapat <strong>10 poin</strong>.</div>
+  <div class="columns">
+   <div class="panel"><h4>🗂️ Kartu peralatan & profesi</h4><div class="items" id="cards"></div></div>
+   <div class="panel"><h4>📌 Pasangkan dengan fungsi/tugasnya</h4><div class="dropzones" id="zones"></div></div>
+  </div>
+  <div class="feedback" id="feedback" aria-live="polite">Pilih satu kartu untuk memulai misi!</div>
+  <div class="controls"><button class="secondary" id="resetBtn">↻ Ulangi permainan</button><button class="primary" id="checkBtn" disabled>Selesaikan misi</button></div>
+  <div class="hint">Tips: Baca fungsi dan tugasnya dengan teliti. Jawaban yang sudah benar akan terkunci.</div>
+ </section>
+ <section class="result" id="result" aria-live="polite">
+  <div class="big" id="resultEmoji">🏆</div><h2>Misi berhasil diselesaikan!</h2>
+  <p id="resultText"></p><button class="primary" id="playAgain">↻ Main lagi</button>
+ </section>
+</main>
+<footer>Media pembelajaran interaktif • DKV Kelas XII • Berjalan luring tanpa internet</footer>
+<script>
+const data=[
+ {name:"Kamera",emoji:"📷",desc:"Merekam gambar bergerak atau video.",kind:"alat"},
+ {name:"Tripod",emoji:"📐",desc:"Menopang kamera agar stabil saat merekam.",kind:"alat"},
+ {name:"Mikrofon",emoji:"🎙️",desc:"Menangkap suara atau dialog saat produksi.",kind:"alat"},
+ {name:"Headphone",emoji:"🎧",desc:"Memantau kualitas audio saat perekaman atau penyuntingan.",kind:"alat"},
+ {name:"Lampu LED",emoji:"💡",desc:"Memberi pencahayaan pada objek atau lokasi syuting.",kind:"alat"},
+ {name:"Editor video",emoji:"🖥️",desc:"Menyusun, memotong, dan mengolah klip video.",kind:"profesi"},
+ {name:"Penata kamera",emoji:"🎥",desc:"Mengoperasikan kamera dan mengatur komposisi gambar.",kind:"profesi"},
+ {name:"Penata suara",emoji:"🔊",desc:"Merekam, mengolah, dan menjaga kualitas suara.",kind:"profesi"}
+];
+let score=0,correct=0,attempts=0,selected=null,locked=false,drag=null;
+const $=id=>document.getElementById(id);
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function render(){
+ score=0;correct=0;attempts=0;selected=null;locked=false;drag=null;
+ $("score").textContent=0;$("progressText").textContent="0 / 8";$("attempts").textContent=0;$("bar").style.width="0%";
+ $("feedback").textContent="Pilih satu kartu untuk memulai misi!";$("feedback").className="feedback";
+ $("game").style.display="block";$("result").classList.remove("show");
+ $("cards").innerHTML="";$("zones").innerHTML="";
+ const order=shuffle(data);
+ order.forEach((d)=>{
+  const card=document.createElement("div");card.className="item";card.tabIndex=0;card.setAttribute("role","button");card.setAttribute("aria-label",d.name);
+  card.dataset.id=data.indexOf(d);card.innerHTML=`<span class="emoji">${d.emoji}</span><strong>${d.name}</strong>`;
+  card.addEventListener("pointerdown",startDrag);
+  card.addEventListener("click",()=>selectCard(card));
+  card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();selectCard(card)}});
+  $("cards").append(card);
+ });
+ shuffle(data).forEach(d=>{
+  const idx=data.indexOf(d),zone=document.createElement("div");zone.className="zone";zone.dataset.id=idx;
+  zone.innerHTML=`<div class="zone-icon">${d.kind==="alat"?"🧰":"🎬"}</div><div class="zone-copy"><strong>${d.kind==="alat"?"Fungsi peralatan":"Tugas profesi"}</strong><small>${d.desc}</small><div class="zone-answer">Ketuk atau lepaskan kartu di sini</div></div>`;
+  zone.addEventListener("pointerup",()=>{if(selected!==null)place(selected,zone)});
+  zone.addEventListener("click",()=>{if(selected!==null)place(selected,zone)});
+  $("zones").append(zone);
+ });
+}
+function selectCard(card){
+ if(locked||card.classList.contains("used"))return;
+ document.querySelectorAll(".item.selected").forEach(c=>c.classList.remove("selected"));
+ selected=Number(card.dataset.id);card.classList.add("selected");
+ $("feedback").textContent="Kartu "+data[selected].name+" dipilih. Sekarang ketuk kotak yang sesuai.";
+ $("feedback").className="feedback";
+}
+function place(id,zone){
+ if(locked||zone.classList.contains("correct")||id===null)return;
+ attempts++;$("attempts").textContent=attempts;
+ if(Number(zone.dataset.id)===id){
+  correct++;score+=10;$("score").textContent=score;$("progressText").textContent=correct+" / 8";
+  $("bar").style.width=(correct/8*100)+"%";
+  zone.classList.add("correct");zone.querySelector(".zone-answer").textContent="✓ "+data[id].name;
+  const card=document.querySelector(`.item[data-id="${id}"]`);card.classList.add("used");card.classList.remove("selected");
+  $("feedback").textContent="Hebat! Jawaban benar. +10 poin 🌟";$("feedback").className="feedback good";
+  selected=null;
+  if(correct===8)setTimeout(finish,550);
+ }else{
+  zone.classList.remove("wrong");void zone.offsetWidth;zone.classList.add("wrong");
+  $("feedback").textContent="Belum tepat. Coba pikirkan kembali fungsi atau tugasnya! 💪";$("feedback").className="feedback bad";
+  selected=null;document.querySelectorAll(".item.selected").forEach(c=>c.classList.remove("selected"));
+  setTimeout(()=>zone.classList.remove("wrong"),650);
+ }
+}
+function startDrag(e){
+ const card=e.currentTarget;if(card.classList.contains("used")||locked)return;
+ e.preventDefault();selectCard(card);
+ const ghost=card.cloneNode(true);ghost.classList.add("drag-ghost");ghost.style.width=card.offsetWidth+"px";document.body.append(ghost);
+ drag={id:Number(card.dataset.id),ghost};moveGhost(e);
+ const move=ev=>moveGhost(ev);
+ const end=ev=>{
+  window.removeEventListener("pointermove",move);window.removeEventListener("pointerup",end);
+  const el=document.elementFromPoint(ev.clientX,ev.clientY);const zone=el&&el.closest(".zone");
+  if(zone)place(drag.id,zone);
+  drag.ghost.remove();drag=null;
+ };
+ window.addEventListener("pointermove",move);window.addEventListener("pointerup",end);
+}
+function moveGhost(e){if(drag&&drag.ghost){drag.ghost.style.left=e.clientX+"px";drag.ghost.style.top=e.clientY+"px"}}
+function finish(){
+ locked=true;$("game").style.display="none";$("result").classList.add("show");
+ const msg=score===80?"Luar biasa! Kamu menguasai pasangan peralatan dan profesi audio video.":score>=60?"Bagus sekali! Terus asah pengetahuanmu tentang produksi audio video.":"Tetap semangat! Ulangi permainan agar semakin mengenal kru dan peralatan produksi.";
+ $("resultText").textContent=`Skor akhir: ${score} dari 80 • Jawaban benar: ${correct}/8 • Total percobaan: ${attempts}. ${msg}`;
+ $("resultEmoji").textContent=score===80?"🏆":score>=60?"🎉":"💪";
+}
+$("resetBtn").addEventListener("click",render);$("playAgain").addEventListener("click",render);
+$("checkBtn").addEventListener("click",finish);
+render();
+</script>
+</body>
+</html>
